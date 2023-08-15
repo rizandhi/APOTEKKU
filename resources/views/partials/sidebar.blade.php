@@ -1,8 +1,9 @@
-<ul class="navbar-nav bg-gradient-primary sidebar fixed sidebar-dark accordion" id="accordionSidebar" style=" z-index: 100;">
+<ul class="navbar-nav bg-gradient-primary sidebar fixed sidebar-dark accordion" id="accordionSidebar"
+    style=" z-index: 100;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_dashboard.php">
-       <div class="sidebar-brand-text mx-3">PEGAWAI</div>
+        <div class="sidebar-brand-text mx-3">PEGAWAI</div>
     </a>
 
     <!-- Divider -->
@@ -20,7 +21,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-       DATA APOTEK
+        DATA APOTEK
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -36,7 +37,7 @@
                 <a class="collapse-item" href="/persediaan">Persediaan</a>
                 <a class="collapse-item" href="/suplier">Supplier</a>
                 <a class="collapse-item" href="/obat">Obat</a>
-                </div>
+            </div>
         </div>
     </li>
 
@@ -48,11 +49,26 @@
     <div class="sidebar-heading">
         LAPORAN
     </div>
-    <li class="nav-item ">
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Kelola Transaksi</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <a class="collapse-item" href="/transaksi">Penjualan</a>
+                <a class="collapse-item" href="#">Pengeluaran</a>
+                <a class="collapse-item" href="#">Rekap</a>
+            </div>
+        </div>
+    </li>
+    {{-- <li class="nav-item ">
         <a class="nav-link" href="/transaksi">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             <span>Data Transaksi</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
