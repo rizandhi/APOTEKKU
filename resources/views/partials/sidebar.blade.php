@@ -1,8 +1,9 @@
-<ul class="navbar-nav bg-gradient-primary sidebar fixed sidebar-dark accordion" id="accordionSidebar" style=" z-index: 100;">
+<ul class="navbar-nav bg-gradient-primary sidebar fixed sidebar-dark accordion" id="accordionSidebar"
+    style=" z-index: 100;">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_dashboard.php">
-       <div class="sidebar-brand-text mx-3">PEGAWAI</div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        <div class="sidebar-brand-text mx-3">PEGAWAI</div>
     </a>
 
     <!-- Divider -->
@@ -20,7 +21,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-       DATA APOTEK
+        DATA APOTEK
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -36,7 +37,7 @@
                 <a class="collapse-item" href="/persediaan">Persediaan</a>
                 <a class="collapse-item" href="/suplier">Supplier</a>
                 <a class="collapse-item" href="/obat">Obat</a>
-                </div>
+            </div>
         </div>
     </li>
 
