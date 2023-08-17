@@ -27,16 +27,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 // --------RUTE MENU DASHBOARD--------//
-Route::get('/dashboard',[DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 
 // --------RUTE MENU OBAT--------//
-Route::get('/obat',[ObatController::class, 'index']);
+Route::get('/obat', [ObatController::class, 'index']);
 Route::post('/tambahobat', [ObatController::class, 'tambah']);
 
 
 // --------RUTE MENU PERSEDIAAN--------//
-Route::get('/persediaan',[PersediaanController::class, 'index']);
+Route::get('/persediaan', [PersediaanController::class, 'index']);
 
 
 // --------RUTE MENU SUPLIER--------//
@@ -56,7 +56,7 @@ Route::post('/update-suplier/{id}', [SuplierController::class, 'update']);
 
 
 // --------RUTE MENU TRANSAKSI--------//
-Route::get('/transaksi',[TransaksiController::class, 'index']);
+Route::get('/transaksi', [TransaksiController::class, 'index']);
 
 
 
@@ -80,5 +80,12 @@ Route::get('/transaksi',[TransaksiController::class, 'index']);
 
 
 // --------RUTE MENU USER--------//
-Route::get('/user',[UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index']);
+// Menambahkan data user baru
 Route::post('/tambahuser', [UserController::class, 'tambah']);
+// Menampilkan data user untuk diedit
+Route::get('/user/edit/{id}', [UserController::class, 'edit']);
+// Mengupdate data user yang diedit
+Route::post('/UpdateUser/{id_user}', [UserController::class, 'update'])->name('UpdateUser.update');
+// Menghapus data user
+Route::delete('/deleteUser/{id_user}', [UserController::class, 'hapus']);

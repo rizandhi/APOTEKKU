@@ -32,7 +32,8 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Masukkan Alamat">
+                            <input type="text" class="form-control" id="password" name="password"
+                                placeholder="Masukkan Alamat">
                         </div>
                         <div class="form-group">
                             <label for="level">Level</label>
@@ -40,7 +41,7 @@
                                 <option value="Admin">Admin</option>
                                 <option value="User">User</option>
                             </select>
-                          </div>
+                        </div>
 
                         {{-- <div class="">
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -51,7 +52,7 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <button class="btn btn-primary" type="submit" id="simpanData">Simpan</button>
                 </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
@@ -82,11 +83,11 @@
                                                         <th>Username</th>
                                                         <th>Password</th>
                                                         <th>Level</th>
-                                                                                                                <th class="w-fit">Aksi</th>
+                                                        <th class="w-fit">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($user as $item)
+                                                    @foreach ($user1 as $item)
                                                         <tr class=" ">
                                                             <td>
                                                                 {{ $loop->iteration }}
@@ -95,21 +96,81 @@
                                                             </td>
                                                             <td>{{ $item->confirmasi_password }}
                                                             </td>
-                                                            <td>{{ $item->level}}
+                                                            <td>{{ $item->level }}
                                                             </td>
-
-                                                            <td class="w-fit">
-                                                                <a href="#" class="" data-toggle="modal-hapus"
-                                                                    data-target="#logoutModal">
+                                                            <td class="w-fit d-flex justify-end">
+                                                                <button class="editBtn btn text-primary p-0 m-0"
+                                                                    data-id="{{ $item->id_user }}" data-toggle="modal"
+                                                                    data-target="#editModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                                                </a>
-                                                                <a href="#" class=" "data-toggle="modal-edit"
-                                                                    data-target="#logoutModal">
-                                                                    <i class="fa-regular fa-trash-can fa-lg"></i>
-                                                                </a>
+                                                                </button>
+                                                                <form action="/deleteUser/{{ $item->id_user }}"
+                                                                    method="post">
+
+                                                                    @csrf
+                                                                    @method('delete')
+
+                                                                    <button type="submit" class="btn text-primary  p-0 m-0"
+                                                                        onclick="return confirm('Yakin ingin hapus data?')">
+                                                                        <i class="fa-solid fa-trash-can fa-lg"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     @endforeach
+                                                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Edit
+                                                                        User</h5>
+                                                                    <button class="close" type="button"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form
+                                                                        action="{{ route('UpdateUser.update', $item->id_user) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <input type="hidden" name="edit_user_id"
+                                                                            id="edit_user_id">
+                                                                        <div class="form-group">
+                                                                            <label for="edit_username">Username</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="edit_username" name="edit_username"
+                                                                                value="{{ old('edit_username', $item->username) }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="edit_password">Password</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="edit_password" name="edit_password"
+                                                                                value="{{ old('edit_password', $item->confirmasi_password) }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="edit_level">Level</label>
+                                                                            <select name="edit_level" id="edit_level"
+                                                                                class="form-control">
+                                                                                <option value="Admin">Admin</option>
+                                                                                <option value="User">User</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button"
+                                                                        data-dismiss="modal">Batal</button>
+                                                                    <button class="btn btn-primary" type="submit">Simpan
+                                                                        Perubahan</button>
+                                                                </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
 
                                                     </tr>
                                                 </tbody>
@@ -127,9 +188,10 @@
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                         <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                    class="page-link">Previous</a>
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0"
+                                                    tabindex="0" class="page-link">Previous</a>
                                             </li>
                                             <li class="paginate_button page-item active"><a href="#"
                                                     aria-controls="dataTable" data-dt-idx="1" tabindex="0"
@@ -149,9 +211,9 @@
                                             <li class="paginate_button page-item "><a href="#"
                                                     aria-controls="dataTable" data-dt-idx="6" tabindex="0"
                                                     class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                    class="page-link">Next</a></li>
+                                            <li class="paginate_button page-item next" id="dataTable_next"><a
+                                                    href="#" aria-controls="dataTable" data-dt-idx="7"
+                                                    tabindex="0" class="page-link">Next</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -163,4 +225,29 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll(".editBtn");
+            const editModal = document.querySelector("#editModal");
+            const editUsernameInput = editModal.querySelector("#edit_username");
+            const editPasswordInput = editModal.querySelector("#edit_password");
+            const editLevelInput = editModal.querySelector("#edit_level");
+
+            editButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const userId = button.getAttribute("data-id");
+
+                    // Anda bisa mengganti URL sesuai dengan endpoint Anda
+                    fetch(`/user/edit/${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            editUsernameInput.value = data.username;
+                            editPasswordInput.value = data.confirmasi_password;
+                            editLevelInput.value = data.level;
+                        })
+                        .catch(error => console.error("Error fetching data:", error));
+                });
+            });
+        });
+    </script>
 @endsection
