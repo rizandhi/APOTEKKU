@@ -38,16 +38,19 @@ class UserController extends Controller
             'level' => $request->level
 
         ];
-        $user['password']=bcrypt($user['password']);
+        $user['password'] = bcrypt($user['password']);
         Tb_user::create($user);
 
 
 
         return redirect('/user');
     }
-    public function edit($id_user)
+    public function edit($id)
     {
-        $user = Tb_user::find($id_user);
+        // Mengambil data user berdasarkan ID
+        $user = Tb_user::find($id);
+
+        // Mengirim data user sebagai respons JSON
         return response()->json($user);
     }
 
@@ -72,6 +75,8 @@ class UserController extends Controller
         return redirect('/user');
     }
 
+
+
     public function hapus($id)
     {
         $user = Tb_user::find($id);
@@ -82,9 +87,4 @@ class UserController extends Controller
 
         return redirect('/user');
     }
-
-
-
-
-    
 }

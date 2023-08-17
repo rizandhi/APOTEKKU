@@ -88,4 +88,4 @@ Route::get('/user/edit/{id}', [UserController::class, 'edit']);
 // Mengupdate data user yang diedit
 Route::post('/UpdateUser/{id_user}', [UserController::class, 'update'])->name('UpdateUser.update');
 // Menghapus data user
-Route::delete('/deleteUser/{id_user}', [UserController::class, 'hapus']);
+Route::delete('/deleteUser/{id_user}', [UserController::class, 'hapus'])->name('deleteUser');
