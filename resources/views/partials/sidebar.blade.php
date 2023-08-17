@@ -2,7 +2,9 @@
     style=" z-index: 100;">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_dashboard.php">
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+
         <div class="sidebar-brand-text mx-3">PEGAWAI</div>
     </a>
 
