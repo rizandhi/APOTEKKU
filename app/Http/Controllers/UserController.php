@@ -77,9 +77,9 @@ class UserController extends Controller
 
 
 
-    public function hapus($id)
+    public function hapus($id_user)
     {
-        $user = Tb_user::find($id);
+        $user = Tb_user::find($id_user);
 
         if ($user) {
             $user->delete();

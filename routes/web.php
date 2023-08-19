@@ -41,16 +41,16 @@ Route::get('/persediaan', [PersediaanController::class, 'index']);
 
 // --------RUTE MENU SUPLIER--------//
 // Menampilkan halaman daftar suplier
+// Route::get('/suplier', [SuplierController::class, 'index']);
 Route::get('/suplier', [SuplierController::class, 'index']);
-
-// Menambahkan data suplier baru
+// Menambahkan data user baru
 Route::post('/tambahsuplier', [SuplierController::class, 'tambah']);
-
 // Menampilkan data suplier untuk diedit
-Route::get('/get-suplier/{id}', [SuplierController::class, 'getSuplierById']);
-
+Route::get('/suplier/edit/{id}', [SuplierController::class, 'edit']);
 // Mengupdate data suplier yang diedit
-Route::post('/update-suplier/{id}', [SuplierController::class, 'update']);
+Route::post('/UpdateSuplier/{id_suplier}', [SuplierController::class, 'update'])->name('UpdateSuplier.update');
+// Menghapus data suplier
+Route::delete('/deleteSuplier/{id_suplier}', [SuplierController::class, 'hapus'])->name('deleteSuplier');
 
 
 

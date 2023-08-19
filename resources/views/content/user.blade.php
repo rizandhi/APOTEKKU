@@ -42,8 +42,6 @@
                                 <option value="User">User</option>
                             </select>
                         </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -55,44 +53,44 @@
     </div>
 
     <!-- Modal Edit -->
-   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editForm" method="POST">
-                    @csrf
-                    <input type="hidden" name="edit_user_id" id="edit_user_id">
-                    <div class="form-group">
-                        <label for="edit_username">Username</label>
-                        <input type="text" class="form-control" id="edit_username" name="edit_username">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_password">Password</label>
-                        <input type="text" class="form-control" id="edit_password" name="edit_password">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_level">Level</label>
-                        <select name="edit_level" id="edit_level" class="form-control">
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                <button class="btn btn-primary" type="button" id="simpanPerubahan">Simpan Perubahan</button>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" method="POST">
+                        @csrf
+                        <input type="hidden" name="edit_user_id" id="edit_user_id">
+                        <div class="form-group">
+                            <label for="edit_username">Username</label>
+                            <input type="text" class="form-control" id="edit_username" name="edit_username">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_password">Password</label>
+                            <input type="text" class="form-control" id="edit_password" name="edit_password">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_level">Level</label>
+                            <select name="edit_level" id="edit_level" class="form-control">
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary" type="button" id="simpanPerubahan">Simpan Perubahan</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Tabel -->
     <div class="container-fluid">
@@ -145,42 +143,41 @@
         </div>
     </div>
 
-   <!-- Modal Edit -->
+    <!-- Modal Edit -->
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const editButtons = document.querySelectorAll(".editBtn");
-        const editModal = document.querySelector("#editModal");
-        const editForm = editModal.querySelector("#editForm");
-        const editUsernameInput = editModal.querySelector("#edit_username");
-        const editPasswordInput = editModal.querySelector("#edit_password");
-        const editLevelInput = editModal.querySelector("#edit_level");
-        const editUserIdInput = editModal.querySelector("#edit_user_id");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll(".editBtn");
+            const editModal = document.querySelector("#editModal");
+            const editForm = editModal.querySelector("#editForm");
+            const editUsernameInput = editModal.querySelector("#edit_username");
+            const editPasswordInput = editModal.querySelector("#edit_password");
+            const editLevelInput = editModal.querySelector("#edit_level");
+            const editUserIdInput = editModal.querySelector("#edit_user_id");
 
-        editButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const userId = button.getAttribute("data-id");
+            editButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const userId = button.getAttribute("data-id");
 
-                // Mengambil data dari user1 berdasarkan ID yang diklik
-                const user1Data = @json($user1->keyBy('id_user'));
+                    // Mengambil data dari user1 berdasarkan ID yang diklik
+                    const user1Data = @json($user1->keyBy('id_user'));
 
-                if (user1Data[userId]) {
-                    const userData = user1Data[userId];
-                    editUserIdInput.value = userId; // Set user ID for form submission
-                    editUsernameInput.value = userData.username;
-                    editPasswordInput.value = userData.confirmasi_password;
-                    editLevelInput.value = userData.level;
-                }
+                    if (user1Data[userId]) {
+                        const userData = user1Data[userId];
+                        editUserIdInput.value = userId; // Set user ID for form submission
+                        editUsernameInput.value = userData.username;
+                        editPasswordInput.value = userData.confirmasi_password;
+                        editLevelInput.value = userData.level;
+                    }
+                });
+            });
+
+            const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
+            simpanPerubahanButton.addEventListener("click", function() {
+                editForm.action = "/UpdateUser/" + editUserIdInput.value;
+                editForm.submit();
             });
         });
-
-        const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
-        simpanPerubahanButton.addEventListener("click", function() {
-            editForm.action = "/UpdateUser/" + editUserIdInput.value;
-            editForm.submit();
-        });
-    });
-</script>
-
+    </script>
 @endsection
