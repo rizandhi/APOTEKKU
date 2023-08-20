@@ -100,7 +100,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between text-primary ">
-                <h6 class="m-0 font-weight-bold w-100">Table Data Persediaan Obat Apotek</h6>
+                <h6 class="m-0 font-weight-bold w-100">Daftar Suplier Obat Apotek</h6>
                 <div><i class="fa-solid fa-print fa-lg"></i></div>
             </div>
             <div class="card-body">

@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label for="level">Level</label>
-                            <select name="level" id="level">
+                            <select class="form-control" name="level" id="level">
                                 <option value="Admin">Admin</option>
                                 <option value="User">User</option>
                             </select>
@@ -61,7 +61,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between text-primary ">
-                <h6 class="m-0 font-weight-bold w-100">Tabel User</h6>
+                <h6 class="m-0 font-weight-bold w-100">Tabel daftar User dan Admin</h6>
                 <div><i class="fa-solid fa-print fa-lg"></i></div>
             </div>
 
@@ -82,7 +82,7 @@
                                                         <th>Username</th>
                                                         <th>Password</th>
                                                         <th>Level</th>
-                                                                                                                <th class="w-fit">Aksi</th>
+                                                         <th class="w-fit">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -103,8 +103,8 @@
                                                                     data-target="#logoutModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                                                 </a>
-                                                                <a href="#" class=" "data-toggle="modal-edit"
-                                                                    data-target="#logoutModal">
+                                                                <a href="#" class="btn-edit"data-toggle="modal"
+                                                                    data-target="#editModal">
                                                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                                                 </a>
                                                             </td>
