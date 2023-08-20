@@ -11,7 +11,7 @@
 
         </div>
     </div>
-    <!-- Begin Page Content -->
+    <!-- tambah data-->
     <div class="modal fade" id="tambahDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -32,65 +32,71 @@
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan Alamat">
+                            <input type="text" class="form-control" id="alamat" name="alamat"
+                                placeholder="Masukkan Alamat">
                         </div>
                         <div class="form-group">
                             <label for="nama_agen">Agen</label>
-                            <input type="text" class="form-control" id="nama_agen" name="nama_agen" placeholder="Masukkan Nama Agen">
+                            <input type="text" class="form-control" id="nama_agen" name="nama_agen"
+                                placeholder="Masukkan Nama Agen">
                         </div>
                         <div class="form-group">
                             <label for="kontak">Kontak</label>
-                            <input type="text" class="form-control" id="kontak" name="kontak" placeholder="Masukkan Kontak">
+                            <input type="text" class="form-control" id="kontak" name="kontak"
+                                placeholder="Masukkan Kontak">
                         </div>
                         <div class="">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
-                    </form>
+
                 </div>
                 <div class="modal-footer">
-                    {{-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button> --}}
-                    {{-- <button class="btn btn-primary" type="submit">Simpan</button> --}}
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary" type="submit">Simpan</button>
                 </div>
-
+                </form>
             </div>
         </div>
     </div>
     <!--edit-->
-    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Suplier</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="editForm" method="POST">
+                        @csrf
+                        <input type="hidden" name="edit_suplier_id" id="edit_suplier_id">
                         <div class="form-group">
-                            <label for="nama_suplier_modal">Nama</label>
-                            <input type="text" class="form-control" id="nama_suplier_modal" name="nama_suplier"
-                                placeholder="Masukkan Nama Suplier">
+                            <label for="edit_nama_suplier">Nama</label>
+                            <input type="text" class="form-control" id="edit_nama_suplier" name="edit_nama_suplier">
                         </div>
                         <div class="form-group">
-                            <label for="alamat_modal">Alamat</label>
-                            <input type="text" class="form-control" id="alamat_modal" name="alamat" placeholder="Masukkan Alamat">
+                            <label for="edit_alamat">Alamat</label>
+                            <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
+                                placeholder="Masukkan Alamat">
                         </div>
                         <div class="form-group">
-                            <label for="agen_modal">Agen</label>
-                            <input type="text" class="form-control" id="agen_modal" name="nama_agen" placeholder="Masukkan Nama Agen">
+                            <label for="edit_nama_agen">Agen</label>
+                            <input type="text" class="form-control" id="edit_nama_agen" name="edit_nama_agen"
+                                placeholder="Masukkan Nama Agen">
                         </div>
                         <div class="form-group">
-                            <label for="kontak_modal">Kontak</label>
-                            <input type="number" class="form-control" id="kontak_modal" name="kontak" placeholder="Masukkan Kontak">
+                            <label for="edit_kontak">Kontak</label>
+                            <input type="tel" class="form-control" id="edit_kontak" name="edit_kontak"
+                                placeholder="Masukkan Kontak">
                         </div>
-                        <input type="hidden" id="suplier_id_modal">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="button" id="updateData">Simpan Perubahan</button>
+                    <button class="btn btn-primary" type="button" id="simpanPerubahan">Simpan Perubahan</button>
                 </div>
             </div>
         </div>
@@ -139,16 +145,23 @@
                                                             </td>
                                                             <td>{{ $item->kontak }}
                                                             </td>
-                                                            <td class="w-fit">
-                                                                <a href="#" class="editBtn"
+                                                            <td class="w-fit d-flex justify-end">
+                                                                <button class="editBtn btn text-primary p-0 m-0"
                                                                     data-id="{{ $item->id_suplier }}" data-toggle="modal"
-                                                                    data-target="#editDataModal">
+                                                                    data-target="#editModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                                                </a>
-                                                                <a href="#" class=" "data-toggle="modal-edit"
-                                                                    data-target="#logoutModal">
-                                                                    <i class="fa-regular fa-trash-can fa-lg"></i>
-                                                                </a>
+                                                                </button>
+                                                                <form
+                                                                    action="{{ route('deleteUser', ['id_suplier' => $item->id_suplier]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button type="submit"
+                                                                        class="btn text-primary p-0 m-0"
+                                                                        onclick="return confirm('Yakin ingin hapus data?')">
+                                                                        <i class="fa-solid fa-trash-can fa-lg"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -207,55 +220,37 @@
 
     </div>
     <script>
-        // JavaScript untuk menampilkan data supplier dalam modal
-        $(document).ready(function() {
-            $('.editBtn').on('click', function() {
-                var suplierId = $(this).data('id');
+    document.addEventListener("DOMContentLoaded", function() {
+        const editButtons = document.querySelectorAll(".editBtn");
+        const editModal = document.querySelector("#editModal");
+        const editForm = editModal.querySelector("#editForm");
+        const editSupliernameInput = editModal.querySelector("#edit_nama_suplier");
+        const editAlamatInput = editModal.querySelector("#edit_alamat");
+        const editNamaAgenInput = editModal.querySelector("#edit_nama_agen");
+        const editSuplierIdInput = editModal.querySelector("#edit_suplier_id");
 
-                // Lakukan permintaan AJAX untuk mengambil data supplier berdasarkan ID
-                $.ajax({
-                    url: '/get-suplier/' + suplierId, // Ganti dengan URL yang sesuai
-                    method: 'GET',
-                    success: function(response) {
-                        // Isi input dalam modal dengan data yang diterima dari server
-                        $('#nama_suplier_modal').val(response.nama_suplier);
-                        $('#alamat_modal').val(response.alamat);
-                        $('#agen_modal').val(response.nama_agen);
-                        $('#kontak_modal').val(response.kontak);
-                        $('#suplier_id_modal').val(response.id_suplier);
-                    }
-                });
+        editButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const suplierId = button.getAttribute("data-id");
+
+                // Mengambil data dari suplier1 berdasarkan ID yang diklik
+                const suplierData = @json($suplier->keyBy('id_suplier'));
+
+                if (suplierData[suplierId]) {
+                    const suplierData = suplierData[suplierId];
+                    editSuplierIdInput.value = suplierId; // Set suplier ID for form submission
+                    editSupliernameInput.value = suplierData.nama_suplier;
+                    editAlamatInput.value = suplierData.alamat;
+                    editNamaAgenInput.value = suplierData.nama_agen;
+                }
             });
-
-            // Update data ketika tombol "Simpan Perubahan" diklik
-            $('#updateData').on('click', function() {
-                var suplierId = $('#suplier_id_modal').val();
-                var namaSuplier = $('#nama_suplier_modal').val();
-                var alamat = $('#alamat_modal').val();
-                var namaAgen = $('#agen_modal').val();
-                var kontak = $('#kontak_modal').val();
-
-                // Lakukan permintaan AJAX untuk mengirim data perubahan ke server
-                $.ajax({
-                    url: '/update-suplier/' + suplierId, // Ganti dengan URL yang sesuai
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        nama_suplier: namaSuplier,
-                        alamat: alamat,
-                        nama_agen: namaAgen,
-                        kontak: kontak
-                    },
-                    success: function(response) {
-                        // Lakukan tindakan setelah data berhasil diperbarui
-                        // Misalnya, tampilkan notifikasi atau segarkan tabel data
-                        // ...
-                        $('#editDataModal').modal('hide'); // Tutup modal setelah sukses
-                    }
-                });
-            });
-
         });
-    </script>
 
+        const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
+        simpanPerubahanButton.addEventListener("click", function() {
+            editForm.action = "/UpdateSuplier/" + editSuplierIdInput.value;
+            editForm.submit();
+        });
+    });
+</script>
 @endsection

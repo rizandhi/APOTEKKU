@@ -11,8 +11,8 @@ class SuplierController extends Controller
     //
     public function index()
     {
-        $supliers = Suplier::all();
-        return view('content.data_apotek.suplier', ['suplier' => $supliers]);
+        $suplier = Suplier::all();
+        return view('content.data_apotek.suplier', ['suplier' => $suplier]);
     }
 
     public function getSuplierById($id)
@@ -30,34 +30,61 @@ class SuplierController extends Controller
         //     'alamat' => 'required',
         //     'kontak' => 'required'
         // ]);
+        $suplier = [
+            'nama_suplier' => $request->nama_suplier,
+            'nama_agen' => $request->nama_agen,
+            'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
 
-        $suplier = new Suplier;
-        $suplier->nama_suplier = $request->nama_suplier;
-        $suplier->nama_agen = $request->nama_agen;
-        $suplier->alamat = $request->alamat;
-        $suplier->kontak = $request->kontak;
-        // dd($suplier);
-        $suplier->save();
+        ];
+
+        Suplier::create($suplier);
 
         return redirect('/suplier');
     }
 
-    public function update(Request $request, $id)
+    public function edit($id)
+    {
+        // Mengambil data suplier berdasarkan ID
+        $suplier = Suplier::find($id);
+
+        // Mengirim data suplier sebagai respons JSON
+        return response()->json($suplier);
+    }
+
+    public function update(Request $request, $id_suplier)
     {
         $request->validate([
-            'nama_suplier' => 'required',
-            'nama_agen' => 'required',
-            'alamat' => 'required',
-            'kontak' => 'required'
+            'edit_nama_suplier' => 'required',
+            'edit_nama_agen' => 'required',
+            'edit_alamat' => 'required',
+            'edit_kontak' => 'required'
         ]);
 
-        $suplier = Suplier::findOrFail($id);
-        $suplier->nama_suplier = $request->nama_suplier;
-        $suplier->nama_agen = $request->nama_agen;
-        $suplier->alamat = $request->alamat;
-        $suplier->kontak = $request->kontak;
+        $suplier = Suplier::find($id_suplier);
 
-        $suplier->save();
-        return response()->json(['message' => 'Data suplier berhasil diperbarui']);
+        if ($suplier) {
+            $suplier->update([
+                'nama_suplier' => $request->nama_suplier,
+                'nama_agen' => $request->nama_agen,
+                'alamat' => $request->alamat,
+                'kontak' => $request->kontak,
+            ]);
+        }
+
+        return redirect('/suplier');
+    }
+
+
+
+    public function hapus($id_suplier)
+    {
+        $suplier = Suplier::find($id_suplier);
+
+        if ($suplier) {
+            $suplier->delete();
+        }
+
+        return redirect('/suplier');
     }
 }
