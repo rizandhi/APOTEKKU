@@ -65,10 +65,10 @@ class SuplierController extends Controller
 
         if ($suplier) {
             $suplier->update([
-                'nama_suplier' => $request->nama_suplier,
-                'nama_agen' => $request->nama_agen,
-                'alamat' => $request->alamat,
-                'kontak' => $request->kontak,
+                'nama_suplier' => $request->input('edit_nama_suplier'),
+                'nama_agen' => $request->input('edit_nama_agen'),
+                'alamat' => $request->input('edit_alamat'),
+                'kontak' => $request->input('edit_kontak'),
             ]);
         }
 

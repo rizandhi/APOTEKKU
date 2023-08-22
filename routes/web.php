@@ -10,6 +10,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PersediaanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -32,7 +33,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // --------RUTE MENU OBAT--------//
 Route::get('/obat', [ObatController::class, 'index']);
-Route::post('/tambahobat', [ObatController::class, 'tambah']);
+Route::post('/tambahobat', [ObatController::class, 'tambah'])->name('tambahobat');
 
 
 // --------RUTE MENU PERSEDIAAN--------//
@@ -89,3 +90,7 @@ Route::get('/user/edit/{id}', [UserController::class, 'edit']);
 Route::post('/UpdateUser/{id_user}', [UserController::class, 'update'])->name('UpdateUser.update');
 // Menghapus data user
 Route::delete('/deleteUser/{id_user}', [UserController::class, 'hapus'])->name('deleteUser');
+
+
+// --------RUTE MENU AUTH-LOG OUT--------//
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

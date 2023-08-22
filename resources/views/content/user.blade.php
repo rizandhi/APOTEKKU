@@ -6,7 +6,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
                 data-target="#tambahDataModal">
-                <i class="fas fa-button fa-sm text-white-50"></i> Tambah User</a>
+                <i class="fas fa-button fa-sm text-white-50"></i> Tambah User/Admin</a>
             <h1 class="h3 mb-0 text-gray-800">Data User</h1>
         </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah User/Admin</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -28,18 +28,18 @@
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Masukkan Nama Suplier">
+                                placeholder="masukkan username baru">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="text" class="form-control" id="password" name="password"
-                                placeholder="Masukkan Alamat">
+                                placeholder="masukkan password">
                         </div>
                         <div class="form-group">
                             <label for="level">Level</label>
                             <select class="form-control" name="level" id="level">
-                                <option value="Admin">Admin</option>
-                                <option value="User">User</option>
+                                <option value="Admin">admin</option>
+                                <option value="User">user</option>
                             </select>
                         </div>
                 </div>
@@ -102,99 +102,6 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-<<<<<<< HEAD
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                    role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                    <tbody>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%"
-                                                cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Username</th>
-                                                        <th>Password</th>
-                                                        <th>Level</th>
-                                                         <th class="w-fit">Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($user as $item)
-                                                        <tr class=" ">
-                                                            <td>
-                                                                {{ $loop->iteration }}
-                                                            </td>
-                                                            <td> {{ $item->username }}
-                                                            </td>
-                                                            <td>{{ $item->confirmasi_password }}
-                                                            </td>
-                                                            <td>{{ $item->level}}
-                                                            </td>
-
-                                                            <td class="w-fit">
-                                                                <a href="#" class="" data-toggle="modal-hapus"
-                                                                    data-target="#logoutModal">
-                                                                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                                                </a>
-                                                                <a href="#" class="btn-edit"data-toggle="modal"
-                                                                    data-target="#editModal">
-                                                                    <i class="fa-regular fa-trash-can fa-lg"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-                                        Showing 1 to 10 of 57 entries</div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                    class="page-link">Previous</a>
-                                            </li>
-                                            <li class="paginate_button page-item active"><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                                    class="page-link">1</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-                                                    class="page-link">2</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-                                                    class="page-link">3</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-                                                    class="page-link">4</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="5" tabindex="0"
-                                                    class="page-link">5</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="6" tabindex="0"
-                                                    class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                    class="page-link">Next</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-=======
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
@@ -231,7 +138,6 @@
                             @endforeach
                         </tbody>
                     </table>
->>>>>>> 74da10539f0e7b270852c82b9a61f0118e9e008d
                 </div>
             </div>
         </div>

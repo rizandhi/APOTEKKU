@@ -24,49 +24,53 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="/tambahobat" method="POST">
                         <div class="form-group">
                             <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" placeholder="Masukkan Nama Obat">
+                            <input type="text" class="form-control" id="nama_obat" name="nama_obat"
+                                placeholder="masukkan nama obat">
                         </div>
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
-                            <select class="form-control" id="menu_pilihan">
-                                <option value="ya">Harus resep dokter</option>
-                                <option value="tidak">Bebas</option>
+                            <select class="form-control" name="kategori" id="menu_pilihan">
+                                <option value="ya">harus resep dokter</option>
+                                <option value="tidak">bebas</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="kategori">Jenis Obat</label>
-                            <select class="form-control" id="menu_pilihan">
-                                <option value="ya">Tablet</option>
-                                <option value="tidak">Kapsul</option>
-                                <option value="tidak">Salep</option>
-                                <option value="tidak">Sirup</option>
+                            <label for="jenis_obat">Jenis Obat</label>
+                            <select class="form-control" name="jenis_obat" id="menu_pilihan">
+                                <option value="ya">tablet</option>
+                                <option value="tidak">kapsul</option>
+                                <option value="tidak">salep</option>
+                                <option value="tidak">sirup</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="harga_jual">Harga Jual</label>
-                            <input type="number" class="form-control" id="harga_jual" placeholder="Masukkan Stock">
+                            <input type="text" class="form-control" id="harga_jual" name="harga_jual"
+                                placeholder="masukkan harga jual">
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock </label>
-                            <input type="text" class="form-control" id="stock" placeholder="Maskkan Stock"
-                                onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
+                            <input type="text" class="form-control" id="stock" nkame="stock"
+                                placeholder="masukkan stock" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
                         </div>
                         <div class="form-group">
                             <label for="suplier">Suplier</label>
-                            <input type="text" class="form-control" id="suplier" placeholder="Masukkan Suplier">
+                            <input type="text" class="form-control" id="suplier" name="suplier"
+                                placeholder="masukkan supplier">
                         </div>
                         <div class="form-group">
                             <label for="exp">Exp</label>
-                            <input type="date" class="form-control" id="stock" placeholder="Masukkan Tanggal Exp">
+                            <input type="date" class="form-control" id="exp" name="exp"
+                                placeholder="masukkan tanggal exp">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="button" id="simpanData">Simpan</button>
+                    <button class="btn btn-primary" type="submit" id="simpanData">Simpan</button>
                 </div>
             </div>
         </div>
@@ -86,18 +90,18 @@
                     <form>
                         <div class="form-group">
                             <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" placeholder="Masukkan Nama Obat">
+                            <input type="text" class="form-control" id="edit_nama_obat" name="edit_nama_obat">
                         </div>
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
-                            <select class="form-control" id="menu_pilihan">
+                            <select class="form-control" id="edit_kategori" name="edit_nama_obat">
                                 <option value="ya">Harus resep dokter</option>
                                 <option value="tidak">Bebas</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kategori">Jenis Obat</label>
-                            <select class="form-control" id="menu_pilihan">
+                            <select class="form-control" id="edit_kategori" name="edit_kategori">
                                 <option value="ya">Tablet</option>
                                 <option value="tidak">Kapsul</option>
                                 <option value="tidak">Salep</option>
@@ -106,20 +110,21 @@
                         </div>
                         <div class="form-group">
                             <label for="harga_jual">Harga Jual</label>
-                            <input type="number" class="form-control" id="harga_jual" placeholder="Masukkan Stock">
+                            <input type="number" class="form-control" id="edit_harga_jual" name="edit_harga_jual">
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock </label>
-                            <input type="text" class="form-control" id="stock" placeholder="Maskkan Stock"
-                                onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
+                            <input type="text" class="form-control" id="edit_stock" name="edit_stock"
+                                placeholder="Maskkan Stock" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
                         </div>
                         <div class="form-group">
                             <label for="suplier">Suplier</label>
-                            <input type="text" class="form-control" id="suplier" placeholder="Masukkan Suplier">
+                            <input type="text" class="form-control" id="suplier" name="suplier">
                         </div>
                         <div class="form-group">
                             <label for="exp">Exp</label>
                             <input type="date" class="form-control" id="stock"
+                                name="edit_stock
                                 placeholder="Masukkan Tanggal Exp">
                         </div>
                     </form>

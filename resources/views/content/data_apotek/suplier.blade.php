@@ -42,13 +42,9 @@
                         </div>
                         <div class="form-group">
                             <label for="kontak">Kontak</label>
-                            <input type="text" class="form-control" id="kontak" name="kontak"
+                            <input type="telp" class="form-control" id="kontak" name="kontak"
                                 placeholder="Masukkan Kontak">
                         </div>
-                        <div class="">
-                            <button class="btn btn-primary" type="submit">Simpan</button>
-                        </div>
-
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -107,7 +103,9 @@
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between text-primary ">
                 <h6 class="m-0 font-weight-bold w-100">Daftar Suplier Obat Apotek</h6>
-                <div><i class="fa-solid fa-print fa-lg"></i></div>
+                <div class="d-flex justify-content-end">
+                    <a href="javascript:void(0);" class="btn btn-primary" id="printButton">Cetak</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -152,7 +150,7 @@
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                                                 </button>
                                                                 <form
-                                                                    action="{{ route('deleteUser', ['id_suplier' => $item->id_suplier]) }}"
+                                                                    action="{{ route('deleteSuplier', ['id_suplier' => $item->id_suplier]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('delete')
@@ -161,56 +159,14 @@
                                                                         onclick="return confirm('Yakin ingin hapus data?')">
                                                                         <i class="fa-solid fa-trash-can fa-lg"></i>
                                                                     </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
                                                     @endforeach
 
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-                                        Showing 1 to 10 of 57 entries</div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled"
-                                                id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0"
-                                                    tabindex="0" class="page-link">Previous</a>
-                                            </li>
-                                            <li class="paginate_button page-item active"><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                                    class="page-link">1</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-                                                    class="page-link">2</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-                                                    class="page-link">3</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-                                                    class="page-link">4</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="5" tabindex="0"
-                                                    class="page-link">5</a></li>
-                                            <li class="paginate_button page-item "><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="6" tabindex="0"
-                                                    class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next" id="dataTable_next"><a
-                                                    href="#" aria-controls="dataTable" data-dt-idx="7"
-                                                    tabindex="0" class="page-link">Next</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -219,38 +175,49 @@
         </div>
 
     </div>
+
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const editButtons = document.querySelectorAll(".editBtn");
-        const editModal = document.querySelector("#editModal");
-        const editForm = editModal.querySelector("#editForm");
-        const editSupliernameInput = editModal.querySelector("#edit_nama_suplier");
-        const editAlamatInput = editModal.querySelector("#edit_alamat");
-        const editNamaAgenInput = editModal.querySelector("#edit_nama_agen");
-        const editSuplierIdInput = editModal.querySelector("#edit_suplier_id");
+        document.addEventListener("DOMContentLoaded", function() {
+            const printButton = document.querySelector("#printButton");
 
-        editButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const suplierId = button.getAttribute("data-id");
-
-                // Mengambil data dari suplier1 berdasarkan ID yang diklik
-                const suplierData = @json($suplier->keyBy('id_suplier'));
-
-                if (suplierData[suplierId]) {
-                    const suplierData = suplierData[suplierId];
-                    editSuplierIdInput.value = suplierId; // Set suplier ID for form submission
-                    editSupliernameInput.value = suplierData.nama_suplier;
-                    editAlamatInput.value = suplierData.alamat;
-                    editNamaAgenInput.value = suplierData.nama_agen;
-                }
+            printButton.addEventListener("click", function() {
+                window.print();
             });
         });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll(".editBtn");
+            const editModal = document.querySelector("#editModal");
+            const editForm = editModal.querySelector("#editForm");
+            const editSupliernameInput = editForm.querySelector("#edit_nama_suplier");
+            const editAlamatInput = editForm.querySelector("#edit_alamat");
+            const editNamaAgenInput = editForm.querySelector("#edit_nama_agen");
+            const editSuplierIdInput = editForm.querySelector("#edit_suplier_id");
 
-        const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
-        simpanPerubahanButton.addEventListener("click", function() {
-            editForm.action = "/UpdateSuplier/" + editSuplierIdInput.value;
-            editForm.submit();
+            editButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const suplierId = button.getAttribute("data-id");
+
+                    // Mengambil data dari suplier berdasarkan ID yang diklik
+                    const suplierData = @json($suplier->keyBy('id_suplier'));
+
+                    if (suplierData[suplierId]) {
+                        const suplier = suplierData[suplierId];
+                        editSuplierIdInput.value = suplierId; // Set suplier ID for form submission
+                        editSupliernameInput.value = suplier.nama_suplier;
+                        editAlamatInput.value = suplier.alamat;
+                        editNamaAgenInput.value = suplier.nama_agen;
+                    }
+                });
+            });
+
+            const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
+            simpanPerubahanButton.addEventListener("click", function() {
+                editForm.action = "/UpdateSuplier/" + editSuplierIdInput.value;
+                editForm.method = "POST"; // Set the form method to POST
+                editForm.submit(); // Submit the form
+            });
         });
-    });
-</script>
+    </script>
 @endsection
