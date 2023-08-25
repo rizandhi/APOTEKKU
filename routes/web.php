@@ -33,7 +33,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // --------RUTE MENU OBAT--------//
 Route::get('/obat', [ObatController::class, 'index']);
-Route::post('/tambahobat', [ObatController::class, 'tambah'])->name('tambahobat');
+Route::post('/tambahobat', [ObatController::class, 'tambah']);
 
 
 // --------RUTE MENU PERSEDIAAN--------//

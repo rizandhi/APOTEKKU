@@ -1,7 +1,6 @@
 @extends('layout.index')
 @section('content')
     <div class="container-fluid">
-
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
@@ -60,7 +59,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Suplier</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -97,6 +96,7 @@
             </div>
         </div>
     </div>
+
     <!--tabel-->
     <div class="container-fluid ">
         <!-- DataTales Example -->
@@ -149,7 +149,7 @@
                                                                     data-target="#editModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                                                 </button>
-                                                                <form
+                                                                {{-- <form
                                                                     action="{{ route('deleteSuplier', ['id_suplier' => $item->id_suplier]) }}"
                                                                     method="post">
                                                                     @csrf
@@ -158,7 +158,7 @@
                                                                         class="btn text-primary p-0 m-0"
                                                                         onclick="return confirm('Yakin ingin hapus data?')">
                                                                         <i class="fa-solid fa-trash-can fa-lg"></i>
-                                                                    </button>
+                                                                    </button> --}}
                                                     @endforeach
 
                                                     </tr>
@@ -211,7 +211,6 @@
                     }
                 });
             });
-
             const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
             simpanPerubahanButton.addEventListener("click", function() {
                 editForm.action = "/UpdateSuplier/" + editSuplierIdInput.value;

@@ -24,119 +24,126 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/tambahobat" method="POST">
+                    <form method="POST" action="/tambahobat">
+                        @csrf
+                        <div class="form-group">
+                            <label for="id_kategori">Kategori</label>
+                            <select class="form-control" id="id_kategori" name="id_kategori">
+                                @foreach ($kategori as $category)
+                                    <option value="{{ $category->id_kategori }}">{{ $category->kategori }}</option>
+                                @endforeach
+                            </select>
+                            {{-- <select class="form-control" id="id_kategori" name="id_kategori">
+                                <option value="1">Tablet</option>
+                                <option value="2">Sirop</option>
+                                </select> --}}
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="kode_obat">Kode Obat</label>
+                            <input type="text" class="form-control" id="kode_obat" name="kode_obat" required>
+                        </div> --}}
                         <div class="form-group">
                             <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" name="nama_obat"
-                                placeholder="masukkan nama obat">
-                        </div>
-                        <div class="form-group">
-                            <label for="kategori">Kategori</label>
-                            <select class="form-control" name="kategori" id="menu_pilihan">
-                                <option value="ya">harus resep dokter</option>
-                                <option value="tidak">bebas</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="jenis_obat">Jenis Obat</label>
-                            <select class="form-control" name="jenis_obat" id="menu_pilihan">
-                                <option value="ya">tablet</option>
-                                <option value="tidak">kapsul</option>
-                                <option value="tidak">salep</option>
-                                <option value="tidak">sirup</option>
-                            </select>
+                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" >
                         </div>
                         <div class="form-group">
                             <label for="harga_jual">Harga Jual</label>
-                            <input type="text" class="form-control" id="harga_jual" name="harga_jual"
-                                placeholder="masukkan harga jual">
+                            <input type="number" class="form-control" id="harga_jual" name="harga_jual" >
                         </div>
                         <div class="form-group">
-                            <label for="stock">Stock </label>
-                            <input type="text" class="form-control" id="stock" nkame="stock"
-                                placeholder="masukkan stock" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
+                            <label for="jumlah">Jumlah</label>
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" >
                         </div>
                         <div class="form-group">
-                            <label for="suplier">Suplier</label>
-                            <input type="text" class="form-control" id="suplier" name="suplier"
-                                placeholder="masukkan supplier">
+                            <label for="tgl_exp">Tanggal Exp</label>
+                            <input type="date" class="form-control" id="tgl_exp" name="tgl_exp" >
                         </div>
                         <div class="form-group">
-                            <label for="exp">Exp</label>
-                            <input type="date" class="form-control" id="exp" name="exp"
-                                placeholder="masukkan tanggal exp">
+                            <label for="id_suplier">Suplier</label>
+                            <select class="form-control" id="id_suplier" name="id_suplier">
+                                @foreach ($suppliers as $supplier)
+                                    <option value="{{ $supplier->id_suplier }}">{{ $supplier->nama_suplier	 }}</option>
+                                @endforeach
+                                {{-- <option value="5">PT.Sjahtera</option>
+                                <option value="6">PT.Kimia</option> --}}
+                            </select>
                         </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </form>
+                        
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="submit" id="simpanData">Simpan</button>
-                </div>
+                
             </div>
         </div>
     </div>
-    <!-- modal edit -->
-    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    
+    <!--edit-->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Obat</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit SObat</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="editForm" method="POST">
+                        @csrf
+                        
+                        <input type="hidden" name="edit_obat_id" id="edit_obat_id">
                         <div class="form-group">
-                            <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="edit_nama_obat" name="edit_nama_obat">
-                        </div>
-                        <div class="form-group">
-                            <label for="kategori">Kategori</label>
-                            <select class="form-control" id="edit_kategori" name="edit_nama_obat">
-                                <option value="ya">Harus resep dokter</option>
-                                <option value="tidak">Bebas</option>
+                            <label for="edit_id_kategori">Kategori</label>
+                            <select class="form-control" id="edit_id_kategori" name="edit_id_kategori">
+                                @foreach ($kategori as $category)
+                                    <option value="{{ $category->id_kategori }}">{{ $category->kategori }}</option>
+                                @endforeach
                             </select>
+                            {{-- <select class="form-control" id="id_kategori" name="id_kategori">
+                                <option value="1">Tablet</option>
+                                <option value="2">Sirop</option>
+                                </select> --}}
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="kode_obat">Kode Obat</label>
+                            <input type="text" class="form-control" id="kode_obat" name="kode_obat" required>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="edit_nama_obat">Nama Obat</label>
+                            <input type="text" class="form-control" id="edit_nama_obat" name="edit_nama_obat" >
                         </div>
                         <div class="form-group">
-                            <label for="kategori">Jenis Obat</label>
-                            <select class="form-control" id="edit_kategori" name="edit_kategori">
-                                <option value="ya">Tablet</option>
-                                <option value="tidak">Kapsul</option>
-                                <option value="tidak">Salep</option>
-                                <option value="tidak">Sirup</option>
+                            <label for="edit_harga_jual">Harga Jual</label>
+                            <input type="number" class="form-control" id="edit_harga_jual" name="edit_harga_jual" >
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_jumlah">Jumlah</label>
+                            <input type="number" class="form-control" id="edit_jumlah" name="edit_jumlah" >
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_tgl_exp">Tanggal Exp</label>
+                            <input type="date" class="form-control" id="edit_tgl_exp" name="edit_tgl_exp" >
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_id_suplier">Suplier</label>
+                            <select class="form-control" id="edit_id_suplier" name="edit_id_suplier">
+                                @foreach ($suppliers as $supplier)
+                                    <option value="{{ $supplier->id_suplier }}">{{ $supplier->nama_suplier	 }}</option>
+                                @endforeach
+                                {{-- <option value="5">PT.Sjahtera</option>
+                                <option value="6">PT.Kimia</option> --}}
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga_jual">Harga Jual</label>
-                            <input type="number" class="form-control" id="edit_harga_jual" name="edit_harga_jual">
-                        </div>
-                        <div class="form-group">
-                            <label for="stock">Stock </label>
-                            <input type="text" class="form-control" id="edit_stock" name="edit_stock"
-                                placeholder="Maskkan Stock" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
-                        </div>
-                        <div class="form-group">
-                            <label for="suplier">Suplier</label>
-                            <input type="text" class="form-control" id="suplier" name="suplier">
-                        </div>
-                        <div class="form-group">
-                            <label for="exp">Exp</label>
-                            <input type="date" class="form-control" id="stock"
-                                name="edit_stock
-                                placeholder="Masukkan Tanggal Exp">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="button" id="simpanData">Simpan</button>
+                    <button class="btn btn-primary" type="button" id="simpanPerubahan">Simpan Perubahan</button>
                 </div>
             </div>
         </div>
     </div>
-
     <!--tabel-->
     <div class="container-fluid ">
         <!-- DataTales Example -->
@@ -145,18 +152,17 @@
                 <h6 class="m-0 font-weight-bold w-100">Table Data Persediaan Obat Apotek</h6>
                 <div><i class="fa-solid fa-print fa-lg"></i></div>
             </div>
-
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                <table class="table table-bordered dataTable" id="dataTable1" width="100%"
                                     cellspacing="0" role="grid" aria-describedby="dataTable_info"
                                     style="width: 100%;">
                                     <tbody>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                            <table class="table table-bordered" id="dataTable2" width="100%"
                                                 cellspacing="0">
                                                 <thead>
                                                     <tr>
@@ -189,13 +195,14 @@
                                                             <td>{{ \Carbon\Carbon::parse($item->tgl_exp)->formatLocalized('%d %B %Y') }}
                                                             </td>
                                                             <td class="w-fit">
-                                                                <a href="#" class=" " data-toggle="modal"
-                                                                    data-target="#editDataModal">
+                                                                <button class="editBtn btn text-primary p-0 m-0"
+                                                                    data-id="{{ $item->id_suplier }}" data-toggle="modal"
+                                                                    data-target="#editModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                                                </a>
-                                                                <a href="#" class=" ">
+                                                                </button>
+                                                                {{-- <a href="#" class=" ">
                                                                     <i class="fa-regular fa-trash-can fa-lg"></i>
-                                                                </a>
+                                                                </a> --}}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -253,6 +260,53 @@
                 </div>
             </div>
         </div>
-
     </div>
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const printButton = document.querySelector("#printButton");
+            printButton.addEventListener("click", function() {
+                window.print();
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll(".editBtn");
+            const editModal = document.querySelector("#editModal");
+            const editForm = editModal.querySelector("#editForm");
+            const editObatnameInput = editForm.querySelector("#edit_nama_obat");
+            const editIdKategoriInput = editForm.querySelector("#edit_id_kategori");
+            const editHargaInput = editForm.querySelector("#edit_harga_jual");
+            const editJumlahInput = editForm.querySelector("#edit_jumlah");
+            const editXPInput = editForm.querySelector("#edit_tgl_exp");
+            const editsuplierInput = editForm.querySelector("#edit_id_suplier");
+            const editObatIdInput = editForm.querySelector("#edit_obat_id");
+
+            editButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const obatId = button.getAttribute("data-id");
+
+                    // Mengambil data dari suplier berdasarkan ID yang diklik
+                    const obatData = @json($obat->keyBy('id_obat'));
+
+                    if (obatData[obatId]) {
+                        const obat = obatData[obatId];
+                        editSuplierIdInput.value = obatId; // Set obat ID for form submission
+                        editObatnameInput.value = obat.nama_obat;
+                        editIdKategoriInput.value = obat.id_kategori;
+                        editHargaInput.value = obat.harga_jual;
+                        editJumlahInput.value = obat.jumlah;
+                        editXPInput.value = obat.tgl_exp;
+                        editsuplierInput.value = obat.id_suplier;
+                    }
+                });
+            });
+            const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
+            simpanPerubahanButton.addEventListener("click", function() {
+                editForm.action = "/UpdateObat/" + editObatIdInput.value;
+                editForm.method = "POST"; // Set the form method to POST
+                editForm.submit(); // Submit the form
+            });
+        });
+    </script>
 @endsection
