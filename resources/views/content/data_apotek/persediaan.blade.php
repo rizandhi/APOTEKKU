@@ -23,60 +23,71 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="/tambahpersediaan">
+                        @csrf
                         <div class="form-group">
-                            <label for="namaObat">Nama Obat</label>
-                            <input type="text" class="form-control" id="namaobat" placeholder="Masukkan Nama Obat">
-                        </div>
-                        <div class="form-group">
-                            <label for="kategori">Kategori</label>
-                            <select class="form-control" id="menu_pilihan">
-                                <option value="ya">Harus resep dokter</option>
-                                <option value="tidak">Bebas</option>
+                            <label for="id_obat">Nama Obat</label>
+                            <select class="form-control" id="id_obat" name="id_obat">
+                                @foreach ($obat as $item)
+                                    <option value="{{ $item->id_obat }}">{{ $item->nama_obat }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="letak">Letak</label>
-                            <label for="menu_rak">Pilih Rak</label>
-                            <select class="form-control" id="menu_rak" name="menu_rak">
-                                <option value="rak_a">rak a</option>
-                                <option value="rak_b">rak b</option>
-                                <option value="rak_c">rak c</option>
+                            <input type="text" class="form-control" id="letak"
+                                placeholder="Masukkan Lokasi Penyimpanan" name="letak">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jumlah">Stok</label>
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" min="0"
+                                value="0">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                            <button class="btn btn-primary" type="submit">Simpan</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal edit -->
+    {{-- <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Persediaan Obat</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="id_obat">Nama Obat</label>
+                            <select class="form-control" id="id_obat" name="id_obat">
+                                @foreach ($obat as $item)
+                                    <option value="{{ $item->id_obat }}">{{ $item->nama_obat }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="stock">Stock</label>
-                            <input type="number" class="form-control" id="stock" placeholder="Masukkan Stock">
+                            <label for="letak">Letak</label>
+                            <input type="text" class="form-control" id="letak" placeholder="Rp." name="letak">
+
                         </div>
+
                         <div class="form-group">
-                            <label for="harga_satuan">Harga Satuan</label>
-                            <input type="text" class="form-control" id="harga_satuan" placeholder="Rp."
-                                onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
+                            <label for="jumlah">Stok</label>
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" min="0"
+                                value="0">
                         </div>
-                        <script>
-                            function clearPlaceholder() {
-                                var hargaSatuanInput = document.getElementById("harga_satuan");
 
-                                // Jika placeholder masih ada "Rp.", hapus teksnya saat input mendapatkan fokus
-                                if (hargaSatuanInput.value === "Rp.") {
-                                    hargaSatuanInput.value = "";
-                                }
-                            }
-
-                            function restorePlaceholder() {
-                                var hargaSatuanInput = document.getElementById("harga_satuan");
-
-                                // Jika input kosong, kembalikan "Rp." ke placeholder saat input kehilangan fokus
-                                if (hargaSatuanInput.value === "") {
-                                    hargaSatuanInput.value = "Rp.";
-                                }
-                            }
-                        </script>
-                        <div class="form-group">
-                            <label for="tanggalexpired">Tanggal Expired</label>
-                            <input type="date" class="form-control" id="tanggalexpired"
-                                placeholder="Masukkan Tanggal Expired">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -85,81 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- modal edit -->
-    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Persediaan Obat</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="namaObat">Nama Obat</label>
-                        <input type="text" class="form-control" id="namaobat" placeholder="Masukkan Nama Obat">
-                    </div>
-                    <div class="form-group">
-                        <label for="kategori">Kategori</label>
-                        <select class="form-control" id="menu_pilihan">
-                            <option value="ya">Harus resep dokter</option>
-                            <option value="tidak">Bebas</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="letak">Letak</label>
-                        <label for="menu_rak">Pilih Rak</label>
-                        <select class="form-control" id="menu_rak" name="menu_rak">
-                            <option value="rak_a">rak a</option>
-                            <option value="rak_b">rak b</option>
-                            <option value="rak_c">rak c</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="stock">Stock</label>
-                        <input type="number" class="form-control" id="stock" placeholder="Masukkan Stock">
-                    </div>
-                    <div class="form-group">
-                        <label for="harga_satuan">Harga Satuan</label>
-                        <input type="text" class="form-control" id="harga_satuan" placeholder="Rp."
-                            onfocus="clearPlaceholder()" onblur="restorePlaceholder()">
-                    </div>
-                    <script>
-                        function clearPlaceholder() {
-                            var hargaSatuanInput = document.getElementById("harga_satuan");
-
-                            // Jika placeholder masih ada "Rp.", hapus teksnya saat input mendapatkan fokus
-                            if (hargaSatuanInput.value === "Rp.") {
-                                hargaSatuanInput.value = "";
-                            }
-                        }
-
-                        function restorePlaceholder() {
-                            var hargaSatuanInput = document.getElementById("harga_satuan");
-
-                            // Jika input kosong, kembalikan "Rp." ke placeholder saat input kehilangan fokus
-                            if (hargaSatuanInput.value === "") {
-                                hargaSatuanInput.value = "Rp.";
-                         
-                    </script>
-                    <div class="form-group">
-                        <label for="tanggalexpired">Tanggal Expired</label>
-                        <input type="date" class="form-control" id="tanggalexpired"
-                            placeholder="Masukkan Tanggal Expired">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                <button class="btn btn-primary" type="button" id="simpanData">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
+    </div> --}}
     <!--tabel-->
     <div class="container-fluid ">
         <!-- DataTales Example -->
@@ -174,9 +111,8 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%"
-                                    cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                    style="width: 100%;">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                                    role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <tbody>
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable" width="100%"

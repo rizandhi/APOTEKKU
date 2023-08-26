@@ -83,15 +83,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit SObat</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Obat</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm" method="POST">
-                        @csrf
-                        
+                    <form id="editForm1" method="POST">
+                        @csrf  
                         <input type="hidden" name="edit_obat_id" id="edit_obat_id">
                         <div class="form-group">
                             <label for="edit_id_kategori">Kategori</label>
@@ -139,7 +138,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="button" id="simpanPerubahan">Simpan Perubahan</button>
+                    <button class="btn btn-primary" type="button" id="simpanPerubahan1">Simpan Perubahan</button>
                 </div>
             </div>
         </div>
@@ -196,7 +195,7 @@
                                                             </td>
                                                             <td class="w-fit">
                                                                 <button class="editBtn btn text-primary p-0 m-0"
-                                                                    data-id="{{ $item->id_suplier }}" data-toggle="modal"
+                                                                    data-id="{{ $item->id_obat }}" data-toggle="modal"
                                                                     data-target="#editModal">
                                                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                                                 </button>
@@ -216,7 +215,7 @@
                                 </table>
                             </div>
 
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-sm-12 col-md-5">
                                     <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
                                         Showing 1 to 10 of 57 entries</div>
@@ -253,7 +252,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -261,26 +260,19 @@
             </div>
         </div>
     </div>
-     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const printButton = document.querySelector("#printButton");
-            printButton.addEventListener("click", function() {
-                window.print();
-            });
-        });
-    </script>
+     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const editButtons = document.querySelectorAll(".editBtn");
             const editModal = document.querySelector("#editModal");
-            const editForm = editModal.querySelector("#editForm");
-            const editObatnameInput = editForm.querySelector("#edit_nama_obat");
-            const editIdKategoriInput = editForm.querySelector("#edit_id_kategori");
-            const editHargaInput = editForm.querySelector("#edit_harga_jual");
-            const editJumlahInput = editForm.querySelector("#edit_jumlah");
-            const editXPInput = editForm.querySelector("#edit_tgl_exp");
-            const editsuplierInput = editForm.querySelector("#edit_id_suplier");
-            const editObatIdInput = editForm.querySelector("#edit_obat_id");
+            const editForm1 = editModal.querySelector("#editForm1");
+            const editObatnameInput = editForm1.querySelector("#edit_nama_obat");
+            const editIdKategoriInput = editForm1.querySelector("#edit_id_kategori");
+            const editHargaInput = editForm1.querySelector("#edit_harga_jual");
+            const editJumlahInput = editForm1.querySelector("#edit_jumlah");
+            const editXPInput = editForm1.querySelector("#edit_tgl_exp");
+            const editsuplierInput = editForm1.querySelector("#edit_id_suplier");
+            const editObatIdInput = editForm1.querySelector("#edit_obat_id");
 
             editButtons.forEach(button => {
                 button.addEventListener("click", function() {
@@ -291,7 +283,7 @@
 
                     if (obatData[obatId]) {
                         const obat = obatData[obatId];
-                        editSuplierIdInput.value = obatId; // Set obat ID for form submission
+                        editObatIdInput.value = obatId; // Set obat ID for form submission
                         editObatnameInput.value = obat.nama_obat;
                         editIdKategoriInput.value = obat.id_kategori;
                         editHargaInput.value = obat.harga_jual;
@@ -301,11 +293,11 @@
                     }
                 });
             });
-            const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
+            const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan1");
             simpanPerubahanButton.addEventListener("click", function() {
-                editForm.action = "/UpdateObat/" + editObatIdInput.value;
-                editForm.method = "POST"; // Set the form method to POST
-                editForm.submit(); // Submit the form
+                editForm1.action = "/UpdateObat/" + editObatIdInput.value;
+                // editForm1.method = "POST"; // Set the form method to POST
+                editForm1.submit(); // Submit the form
             });
         });
     </script>

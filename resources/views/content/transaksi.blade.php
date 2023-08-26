@@ -8,21 +8,67 @@
 
         </div>
     </div>
-    <!-- Begin Page Content -->
-
+    <!-- tambahpenjualan -->
+    <div class="modal fade" id="tambahDataModaljual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Penjualan</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/tambahjual" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="id_obat">Nama Obat</label>
+                            <select class="form-control" id="id_obat" name="id_obat">
+                                @foreach ($obat as $item)
+                                    <option value="{{ $item->id_obat }}">{{ $item->nama_obat }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah</label>
+                            <input type="number" class="form-control" id="jumlah" name="jumlah"
+                                placeholder="Masukkan Jumlah obat">
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="nama_agen">Agen</label>
+                            <input type="text" class="form-control" id="nama_agen" name="nama_agen"
+                                placeholder="Masukkan Nama Agen">
+                        </div>
+                        <div class="form-group">
+                            <label for="kontak">Kontak</label>
+                            <input type="telp" class="form-control" id="kontak" name="kontak"
+                                placeholder="Masukkan Kontak">
+                        </div> --}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary" type="submit">Simpan</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--tabel-->
-    <div class="container-fluid ">
+    {{-- <div class="container-fluid ">
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between text-primary ">
                 <div class="d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold w-100">Tabel Pengeluaran</h6>
-                    <div><i class="ml-2 fa-solid fa-square-plus fa-xl"></i></div>
-                </div>
+                    <div>
 
+                        <i class="ml-2 fa-solid fa-square-plus fa-xl"></i>
+
+                    </div>
+                </div>
                 <div><i class="fa-solid fa-print fa-lg"></i></div>
             </div>
-
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -88,9 +134,10 @@
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                         <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                    class="page-link">Previous</a>
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0"
+                                                    tabindex="0" class="page-link">Previous</a>
                                             </li>
                                             <li class="paginate_button page-item active"><a href="#"
                                                     aria-controls="dataTable" data-dt-idx="1" tabindex="0"
@@ -110,9 +157,9 @@
                                             <li class="paginate_button page-item "><a href="#"
                                                     aria-controls="dataTable" data-dt-idx="6" tabindex="0"
                                                     class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                                                    aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                    class="page-link">Next</a></li>
+                                            <li class="paginate_button page-item next" id="dataTable_next"><a
+                                                    href="#" aria-controls="dataTable" data-dt-idx="7"
+                                                    tabindex="0" class="page-link">Next</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -124,15 +171,21 @@
 
 
         </div>
-    </div>
+    </div> --}}
     <div class="container-fluid ">
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between text-primary ">
                 <div class="d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold w-100">Tabel Penjualan</h6>
-                    <div><i class="ml-2 fa-solid fa-square-plus fa-xl"></i></div>
+                    <div><a href="#" data-toggle="modal" data-target="#tambahDataModaljual">
+                            <i class="ml-2 fa-solid fa-square-plus fa-xl"></i>
+                        </a>
+                    </div>
                 </div>
-                <div><i class="fa-solid fa-print fa-lg"></i></div>
+                <div>
+                    <i class="fa-solid fa-print fa-lg"></i>
+
+                </div>
             </div>
 
             <div class="card-body">
@@ -163,7 +216,8 @@
                                                             <td>
                                                                 {{ $loop->iteration }}
                                                             </td>
-                                                            <td> {{ $item->obat->updated_at }}
+                                                            <td> {{ $item->created_at->format('l, d F Y') }}
+
                                                             </td>
                                                             <td>{{ $item->obat->nama_obat }}
                                                             </td>

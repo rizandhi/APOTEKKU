@@ -15,7 +15,12 @@ class Penjualan extends Model
 
     protected $primaryKey = 'id_penjualan';
 
-    protected $fillable = ['id_obat', 'jumlah', 'total', 'id_user'];
+    protected $fillable = [
+        'id_obat',
+        'jumlah',
+        'total',
+        // 'id_user'
+    ];
 
     // Definisi relasi many-to-one dengan tb_obat
     public function obat()

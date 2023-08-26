@@ -193,6 +193,7 @@
             const editSupliernameInput = editForm.querySelector("#edit_nama_suplier");
             const editAlamatInput = editForm.querySelector("#edit_alamat");
             const editNamaAgenInput = editForm.querySelector("#edit_nama_agen");
+            const editkontakInput = editForm.querySelector("#edit_kontak");
             const editSuplierIdInput = editForm.querySelector("#edit_suplier_id");
 
             editButtons.forEach(button => {
@@ -206,6 +207,7 @@
                         const suplier = suplierData[suplierId];
                         editSuplierIdInput.value = suplierId; // Set suplier ID for form submission
                         editSupliernameInput.value = suplier.nama_suplier;
+                        editkontakInput.value = suplier.kontak;
                         editAlamatInput.value = suplier.alamat;
                         editNamaAgenInput.value = suplier.nama_agen;
                     }
@@ -214,7 +216,7 @@
             const simpanPerubahanButton = editModal.querySelector("#simpanPerubahan");
             simpanPerubahanButton.addEventListener("click", function() {
                 editForm.action = "/UpdateSuplier/" + editSuplierIdInput.value;
-                editForm.method = "POST"; // Set the form method to POST
+                // editForm.method = "POST"; // Set the form method to POST
                 editForm.submit(); // Submit the form
             });
         });

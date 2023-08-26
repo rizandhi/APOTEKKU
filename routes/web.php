@@ -11,7 +11,7 @@ use App\Http\Controllers\PersediaanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\AuthController;
-
+use App\Models\Transaksi;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +34,13 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 // --------RUTE MENU OBAT--------//
 Route::get('/obat', [ObatController::class, 'index']);
 Route::post('/tambahobat', [ObatController::class, 'tambah']);
+// Route::get('/obat/edit/{id}', [ObatController::class, 'edit']);
 
+Route::post('/UpdateObat/{id_obat}', [ObatController::class, 'update'])->name('UpdateObat.update');
 
 // --------RUTE MENU PERSEDIAAN--------//
 Route::get('/persediaan', [PersediaanController::class, 'index']);
+Route::post('/tambahpersediaan', [PersediaanController::class, 'tambah']);
 
 
 // --------RUTE MENU SUPLIER--------//
@@ -58,6 +61,8 @@ Route::delete('/deleteSuplier/{id_suplier}', [SuplierController::class, 'hapus']
 
 // --------RUTE MENU TRANSAKSI--------//
 Route::get('/transaksi', [TransaksiController::class, 'index']);
+
+Route::post('/tambahjual', [TransaksiController::class, 'tambah']);
 
 
 

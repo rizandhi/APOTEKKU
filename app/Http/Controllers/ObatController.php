@@ -85,25 +85,36 @@ class ObatController extends Controller
         return response()->json($obat);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_obat)
     {
         $request->validate([
+
             'edit_nama_obat' => 'required',
-            'edit_kategori' => 'required',
-            'edit_harga' => 'required',
-            'edit_stok' => 'required',
-            'edit_exp' => 'required',
+            'edit_id_suplier' => 'required',
+            'edit_id_kategori' => 'required',
+            'edit_harga_jual' => 'required',
+            'edit_jumlah' => 'required',
+            'edit_tgl_exp' => 'required',
         ]);
 
-        $obat = Obat::find($id);
+        $obat = Obat::find($id_obat);
+        //  dd($obat);
+        $kategori = Kategori::findOrFail($request->id_kategori);
+        // // Generate the code based on the category and a random number
+        $randomNumber = rand(100, 999);
+        $kode_obat = strtoupper(Str::substr($kategori->kategori, 0, 3)) . $randomNumber;
 
         if ($obat) {
+            dd($obat);
+
             $obat->update([
                 'nama_obat' => $request->input('edit_nama_obat'),
-                'kategori' => $request->input('edit_kategori'),
-                'harga' => $request->input('edit_harga'),
-                'stok' => $request->input('edit_stok'),
-                'exp' => $request->input('edit_exp'),
+                'id_suplier' => $request->input('edit_id_suplier'),
+                'id_kategori' => $request->input('edit_id_kategori'),
+                'harga_jual'=> $request->input('edit_harga_jual'),
+                'jumlah'=> $request->input('edit_jumlah'),
+                'tgl_exp' => $request->input('edit_tgl_exp'),
+                'kode_obat' => $kode_obat,
             ]);
         }
 
