@@ -51,6 +51,10 @@
                             <input type="number" class="form-control" id="harga_jual" name="harga_jual" >
                         </div>
                         <div class="form-group">
+                            <label for="harga_beli">Harga Beli</label>
+                            <input type="number" class="form-control" id="harga_beli" name="harga_beli" >
+                        </div>
+                        <div class="form-group">
                             <label for="jumlah">Jumlah</label>
                             <input type="number" class="form-control" id="jumlah" name="jumlah" >
                         </div>

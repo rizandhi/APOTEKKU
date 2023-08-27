@@ -6,7 +6,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-
+use App\Events\ObatEvent;
+use App\Listeners\ObatEventListener;
+use App\Events\ObatCreated ;
+use App\Events\ObatUpdated;
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -18,16 +21,27 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+    //      ObatCreated::class => [
+    //     ObatEventListener::class,
+    // ],
+    // ObatUpdated::class => [
+    //     ObatEventListener::class,
+    // ],
     ];
 
     /**
      * Register any events for your application.
      */
-    public function boot(): void
+    // public function boot(): void
+    // {
+    //     //
+    // }
+    public function boot()
     {
-        //
-    }
+        parent::boot();
 
+        // ...
+    }
     /**
      * Determine if events and listeners should be automatically discovered.
      */
@@ -35,4 +49,10 @@ class EventServiceProvider extends ServiceProvider
     {
         return false;
     }
+    // app/Providers/EventServiceProvider.php
+
+    // protected $listen = [
+        
+    // ];
+
 }

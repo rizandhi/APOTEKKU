@@ -65,8 +65,10 @@ Route::delete('/deleteSuplier/{id_suplier}', [SuplierController::class, 'hapus']
 // --------RUTE MENU TRANSAKSI--------//
 Route::get('/transaksi', [TransaksiController::class, 'index']);
 
-Route::post('/tambahjual', [TransaksiController::class, 'tambah']);
+Route::post('/tambahJual', [TransaksiController::class, 'tambahjual']);
+Route::post('/tambahBeli', [TransaksiController::class, 'tambahbeli']);
 Route::get('/laporanpenjual', [TransaksiController::class, 'laporanPenjualan']);
+Route::get('/laporanpengeluaran', [TransaksiController::class, 'laporanPengeluaran']);
 
 
 

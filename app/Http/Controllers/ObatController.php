@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Kategori;
 use Illuminate\Support\Str;
-
+use App\Events\ObatCreated;
+use App\Events\ObatUpdated;
 
 class ObatController extends Controller
 {
@@ -55,29 +56,41 @@ class ObatController extends Controller
 
     //     // return redirect('/obat')->with('success', 'Data obat berhasil ditambahkan.');
     // }
-    public function tambah(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nama_obat' => 'required',
-            'id_suplier' => 'required',
-            'id_kategori' => 'required',
-            'harga_jual' => 'required',
-            'jumlah' => 'required',
-            'tgl_exp' => 'required',
-        ]);
+   public function tambah(Request $request)
+{
+     $request->validate([
+        'nama_obat' => 'required',
+        'id_suplier' => 'required',
+        'id_kategori' => 'required',
+        'harga_jual' => 'required',
+        'harga_beli' => 'required',
+        'jumlah' => 'required',
+        'tgl_exp' => 'required',
+    ]);
 
-        $kategori = Kategori::findOrFail($request->id_kategori);
-        // // Generate the code based on the category and a random number
-        $randomNumber = rand(100, 999);
-        $kode_obat = strtoupper(Str::substr($kategori->kategori, 0, 3)) . $randomNumber;
+    $kategori = Kategori::findOrFail($request->id_kategori);
+    $randomNumber = rand(100, 999);
+    $kode_obat = strtoupper(Str::substr($kategori->kategori, 0, 3)) . $randomNumber;
+// dd($request);
+     $obat = Obat::create ([
+        'nama_obat' => $request->input('nama_obat'),
+                'id_suplier' => $request->input('id_suplier'),
+                'id_kategori' => $request->input('id_kategori'),
+                'harga_jual'=> $request->input('harga_jual'),
+                'harga_beli'=> $request->input('harga_beli'),
+                'jumlah'=> $request->input('jumlah'),
+                'tgl_exp' => $request->input('tgl_exp'),
+                'kode_obat' => $kode_obat,
+    ]);
+   
 
-        $tambahobat = array_merge($validatedData, [
-            'kode_obat' => $kode_obat,
-        ]);
-        // dd($tambahobat);
-        Obat::create($tambahobat);
-        return redirect('/obat')->with('success', 'Data obat berhasil ditambahkan.');
-    }
+   
+
+    // event(new ObatCreated($obat)); // Memicu event ObatCreated dengan instance obat
+
+    return redirect('/obat')->with('success', 'Data obat berhasil ditambahkan.');
+}
+
 
     public function edit($id)
     {
@@ -93,6 +106,7 @@ class ObatController extends Controller
             'edit_id_suplier' => 'required',
             'edit_id_kategori' => 'required',
             'edit_harga_jual' => 'required',
+            'edit_harga_beli' => 'required',
             'edit_jumlah' => 'required',
             'edit_tgl_exp' => 'required',
         ]);
@@ -105,19 +119,20 @@ class ObatController extends Controller
         $kode_obat = strtoupper(Str::substr($kategori->kategori, 0, 3)) . $randomNumber;
 
         if ($obat) {
-            dd($obat);
+           
 
             $obat->update([
                 'nama_obat' => $request->input('edit_nama_obat'),
                 'id_suplier' => $request->input('edit_id_suplier'),
                 'id_kategori' => $request->input('edit_id_kategori'),
                 'harga_jual'=> $request->input('edit_harga_jual'),
+                'harga_beli'=> $request->input('edit_harga_beli'),
                 'jumlah'=> $request->input('edit_jumlah'),
                 'tgl_exp' => $request->input('edit_tgl_exp'),
                 'kode_obat' => $kode_obat,
             ]);
         }
-
+       
         return redirect('/obat');
     }
 

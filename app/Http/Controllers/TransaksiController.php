@@ -41,7 +41,7 @@ class TransaksiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function tambah(Request $request)
+    public function tambahjual(Request $request)
     {
         $request->validate([
             'id_obat' => 'required',
@@ -74,68 +74,68 @@ class TransaksiController extends Controller
         return redirect('/transaksi');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function tambahbeli(Request $request)
+{
+    // Validasi input
+    $request->validate([
+        'id_obat' => 'required',
+        'jumlah' => 'required|numeric',
+        
+    ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    // Temukan obat berdasarkan ID
+    $obat = Obat::findOrFail($request->id_obat);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // Hitung total harga
+    $total_harga = $request->jumlah * $obat->harga_beli;
+
+    // Membuat catatan pengeluaran baru
+    $pengeluaran = Pengeluaran::create([
+        'id_obat' => $request->id_obat,
+        'jumlah' => $request->jumlah,
+        'harga' => $obat->harga_beli, // Menggunakan harga beli obat
+        'total_harga' => $total_harga,
+    ]);
+
+    // Mengupdate jumlah di obat
+    $obat->jumlah += $request->jumlah;
+    $obat->save();
+
+    return redirect('/transaksi')->with('success', 'Pengeluaran berhasil ditambahkan.');
+}
+
+
+    
+    public function updatebeli(Request $request, $id)
     {
-        //
-    }
-    public function keluar(Request $request)
-    {
+        $pengeluaran = Pengeluaran::findOrFail($id);
+
+        // Validasi input
         $request->validate([
-            'id_obat' => 'required',
             'jumlah' => 'required|numeric',
+            'harga' => 'required|numeric',
         ]);
 
-        $obat = Obat::find($request->id_obat);
+        // Menghitung total harga baru
+        $total_harga = $request->jumlah * $request->harga;
 
-        if (!$obat) {
-            return back()->with('error', 'Obat tidak ditemukan');
-        }
+        // Menghitung selisih jumlah untuk perubahan di obat
+        $selisih_jumlah = $request->jumlah - $pengeluaran->jumlah;
 
-        if ($obat->jumlah < $request->jumlah) {
-            return back()->with('error', 'Stok obat tidak mencukupi');
-        }
-
-        $total = $obat->harga_jual * $request->jumlah;
-
-        // Kurangi jumlah obat
-        $obat->decrement('jumlah', $request->jumlah);
-
-        $jual = [
-            'id_obat' => $request->id_obat,
+        // Mengupdate catatan pengeluaran
+        $pengeluaran->update([
             'jumlah' => $request->jumlah,
-            'total' => $total,
-        ];
+            'harga' => $request->harga,
+            'total_harga' => $total_harga,
+        ]);
 
-        Penjualan::create($jual);
+        // Mengupdate jumlah di obat
+        $obat = Obat::findOrFail($pengeluaran->id_obat);
+        $obat->jumlah += $selisih_jumlah;
+        $obat->save();
 
-        return redirect('/transaksi');
+        return redirect('/transaksi')->with('success', 'Pengeluaran berhasil diperbarui.');
     }
     public function laporanPenjualan()
     {
@@ -147,6 +147,22 @@ class TransaksiController extends Controller
 
         return view(
             'content.transaksi_cetak',
+            compact(
+                'totalPenjualan',
+                'totalSeluruhPendapatan'
+            )
+        );
+    }
+    public function laporanPengeluaran()
+    {
+        $totalPenjualan = Pengeluaran::selectRaw('id_obat, SUM(jumlah) as jumlah, SUM(total_harga) as total_harga')
+            ->groupBy('id_obat')
+            ->with('obat')
+            ->get();
+        $totalSeluruhPendapatan = Pengeluaran::sum('total_harga');
+
+        return view(
+            'content.transaksi_cetakkeluar',
             compact(
                 'totalPenjualan',
                 'totalSeluruhPendapatan'
