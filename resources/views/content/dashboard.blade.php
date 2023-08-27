@@ -49,8 +49,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-2">
-                                Jumlah Pengeluaran Hari ini </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                Jumlah Obat < 10 </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalObatStokKurangDari10 }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -71,6 +71,37 @@
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="px-4 row mt-2">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Daftar Obat dengan Jumlah Kurang dari 10
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Obat</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($obatStokKurangDari10 as $obat)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $obat->nama_obat }}</td>
+                                        <td>{{ $obat->jumlah }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
