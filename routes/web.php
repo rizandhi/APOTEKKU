@@ -40,7 +40,10 @@ Route::post('/UpdateObat/{id_obat}', [ObatController::class, 'update'])->name('U
 
 // --------RUTE MENU PERSEDIAAN--------//
 Route::get('/persediaan', [PersediaanController::class, 'index']);
+Route::get('/tambahstok/{id_obat}', [PersediaanController::class, 'tambahStok']);
+Route::get('/kurangstok/{id_obat}', [PersediaanController::class, 'kurangStok']);
 Route::post('/tambahpersediaan', [PersediaanController::class, 'tambah']);
+
 
 
 // --------RUTE MENU SUPLIER--------//
@@ -63,6 +66,8 @@ Route::delete('/deleteSuplier/{id_suplier}', [SuplierController::class, 'hapus']
 Route::get('/transaksi', [TransaksiController::class, 'index']);
 
 Route::post('/tambahjual', [TransaksiController::class, 'tambah']);
+Route::get('/laporanpenjual', [TransaksiController::class, 'laporanPenjualan']);
+
 
 
 

@@ -64,15 +64,15 @@ class TransaksiController extends Controller
         $obat->decrement('jumlah', $request->jumlah);
 
         $jual = [
-                'id_obat' => $request->id_obat,
-                'jumlah' => $request->jumlah,
-                'total' => $total,
-            ];
+            'id_obat' => $request->id_obat,
+            'jumlah' => $request->jumlah,
+            'total' => $total,
+        ];
 
         Penjualan::create($jual);
 
         return redirect('/transaksi');
-        }
+    }
 
     /**
      * Display the specified resource.
@@ -104,5 +104,53 @@ class TransaksiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function keluar(Request $request)
+    {
+        $request->validate([
+            'id_obat' => 'required',
+            'jumlah' => 'required|numeric',
+        ]);
+
+        $obat = Obat::find($request->id_obat);
+
+        if (!$obat) {
+            return back()->with('error', 'Obat tidak ditemukan');
+        }
+
+        if ($obat->jumlah < $request->jumlah) {
+            return back()->with('error', 'Stok obat tidak mencukupi');
+        }
+
+        $total = $obat->harga_jual * $request->jumlah;
+
+        // Kurangi jumlah obat
+        $obat->decrement('jumlah', $request->jumlah);
+
+        $jual = [
+            'id_obat' => $request->id_obat,
+            'jumlah' => $request->jumlah,
+            'total' => $total,
+        ];
+
+        Penjualan::create($jual);
+
+        return redirect('/transaksi');
+    }
+    public function laporanPenjualan()
+    {
+        $totalPenjualan = Penjualan::selectRaw('id_obat, SUM(jumlah) as jumlah, SUM(total) as total')
+            ->groupBy('id_obat')
+            ->with('obat')
+            ->get();
+        $totalSeluruhPendapatan = Penjualan::sum('total');
+
+        return view(
+            'content.transaksi_cetak',
+            compact(
+                'totalPenjualan',
+                'totalSeluruhPendapatan'
+            )
+        );
     }
 }

@@ -38,13 +38,11 @@
                             <input type="text" class="form-control" id="letak"
                                 placeholder="Masukkan Lokasi Penyimpanan" name="letak">
                         </div>
-
                         <div class="form-group">
                             <label for="jumlah">Stok</label>
                             <input type="number" class="form-control" id="jumlah" name="jumlah" min="0"
                                 value="0">
                         </div>
-
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -140,7 +138,17 @@
                                                             </td>
                                                             <td>{{ $item->letak }}
                                                             </td>
-                                                            <td>{{ $item->obat->jumlah }}
+                                                            <td>
+                                                                <a href="#" class="kurang-stok"
+                                                                    data-obat-id="{{ $item->obat->id_obat }}">
+                                                                    <i class="ml-2 fa-solid fa-square-minus fa-xl"></i>
+                                                                </a>
+                                                                <span class="obat-jumlah">{{ $item->obat->jumlah }}</span>
+                                                                <a href="#" class="tambah-stok"
+                                                                    data-obat-id="{{ $item->obat->id_obat }}">
+                                                                    <i class="ml-2 fa-solid fa-square-plus fa-xl"></i>
+                                                                </a>
+
                                                             </td>
                                                             <td>{{ \Carbon\Carbon::parse($item->obat->tgl_exp)->formatLocalized('%d %B %Y') }}
                                                             </td>
@@ -210,4 +218,45 @@
         </div>
 
     </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.kurang-stok').click(function(e) {
+                e.preventDefault();
+                var obatId = $(this).data('obat-id');
+                var obatJumlahElement = $(this).siblings('.obat-jumlah');
+
+                $.ajax({
+                    url: '/kurangstok/' + obatId,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            var newJumlah = parseInt(obatJumlahElement.text()) - 1;
+                            obatJumlahElement.text(newJumlah);
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            });
+
+            $('.tambah-stok').click(function(e) {
+                e.preventDefault();
+                var obatId = $(this).data('obat-id');
+                var obatJumlahElement = $(this).siblings('.obat-jumlah');
+
+                $.ajax({
+                    url: '/tambahstok/' + obatId,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            var newJumlah = parseInt(obatJumlahElement.text()) + 1;
+                            obatJumlahElement.text(newJumlah);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -47,6 +47,33 @@ class PersediaanController extends Controller
     }
 
 
+    public function kurangStok($id_obat)
+    {
+        $obat = Obat::find($id_obat);
 
-    
+        if ($obat) {
+            if ($obat->jumlah > 0) {
+                $obat->decrement('jumlah', 1);
+
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Stok obat sudah habis']);
+            }
+        }
+
+        return response()->json(['success' => false, 'message' => 'Obat tidak ditemukan']);
+    }
+
+    public function tambahStok($id_obat)
+    {
+        $obat = Obat::find($id_obat);
+
+        if ($obat) {
+            $obat->increment('jumlah', 1);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Obat tidak ditemukan']);
+    }
 }
