@@ -18,12 +18,12 @@ class TransaksiController extends Controller
     public function index()
     {
         //
-        $transaksi = Transaksi::all();
+        // $transaksi = Transaksi::all();
         $obat = Obat::all();
         $pengeluaran = Pengeluaran::all();
         $penjualan = Penjualan::all();
         return view('content.transaksi', [
-            'transaksi' => $transaksi,
+            // 'transaksi' => $transaksi,
             'penjualan' => $penjualan,
             'obat' => $obat,
             'pengeluaran' => $pengeluaran,

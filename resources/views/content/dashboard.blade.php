@@ -76,10 +76,10 @@
             </div>
         </div>
     </div>
-    <div class="px-4 row mt-2">
+    <div class="px-4 row mt-4">
         <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
+            <div class="card shadow">
+                <div class="card-header text-primary font-weight-bold">
                     Daftar Obat dengan Jumlah Kurang dari 10
                 </div>
                 <div class="card-body">
